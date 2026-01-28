@@ -16,7 +16,6 @@ class Fun(commands.Cog):
     
     @app_commands.command(name="coinflip", description="Flip a coin")
     async def coinflip(self, interaction: discord.Interaction):
-        """Flip a coin - heads or tails"""
         result = random.choice(["Heads", "Tails"])
         
         await interaction.response.send_message(
@@ -69,7 +68,6 @@ class Fun(commands.Cog):
     @app_commands.command(name="urban", description="Look up a word on Urban Dictionary")
     @app_commands.describe(word="Word to look up")
     async def urban(self, interaction: discord.Interaction, word: str):
-        """Get Urban Dictionary definition"""
         await interaction.response.defer()
         
         url = f"https://api.urbandictionary.com/v0/define?term={word}"
@@ -230,7 +228,6 @@ class Fun(commands.Cog):
     @app_commands.command(name="broomfight", description="Challenge someone to a broom fight")
     @app_commands.describe(user="User to challenge")
     async def broomfight(self, interaction: discord.Interaction, user: discord.Member):
-        """Challenge another user to a broom fight"""
         if user.id == interaction.user.id:
             return await interaction.response.send_message(
                 embed=discord.Embed(
