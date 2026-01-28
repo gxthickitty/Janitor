@@ -1,0 +1,40 @@
+{
+  "token": "YOUR_BOT_TOKEN_HERE",
+  "genius_token": "YOUR_GENIUS_API_TOKEN",
+  
+  "bot_info": {
+    "developer": "Simon",
+    "host_provider": "CloudFire,
+    "version": "2.0",
+    "description": "Washing Machine"
+  },
+  
+  "colors": {
+    "primary": "a84141"
+  },
+  
+  "roles": {
+    "birthday_role_id": 00000
+  },
+  
+  "cooldowns": {
+    "duel_seconds": 30,
+    "fork_minutes": 10,
+    "fork_timeout_minutes": 5
+  },
+  
+  "limits": {
+    "purge_max": 350,
+    "quote_scan_limit": 2000,
+    "quote_min_length": 20,
+    "quote_history_size": 4
+  },
+  
+  "database": {
+    "path": "data/bot.db"
+  },
+  
+  "logging": {
+    "log_channel_id": null
+  }
+}
