@@ -25,6 +25,15 @@ class Database:
             )
         ''')
         
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS custom_roles (
+                user_id INTEGER,
+                role_id INTEGER,
+                created_at INTEGER,
+                PRIMARY KEY (user_id, role_id)
+            )
+        ''')
+        
         conn.commit()
         conn.close()
     
@@ -73,6 +82,7 @@ class Database:
         conn.close()
     
     def get_duel_leaderboard(self, limit: int = 5):
+        """Get top players by win ratio"""
         conn = self._get_connection()
         cursor = conn.cursor()
         
@@ -87,4 +97,58 @@ class Database:
         results = cursor.fetchall()
         conn.close()
         
+                
         return results
+
+    def get_user_custom_roles(self, user_id: int):
+        """Get all custom roles for a user"""
+        conn = self._get_connection()
+        cursor = conn.cursor()
+        
+        cursor.execute(
+            "SELECT role_id, created_at FROM custom_roles WHERE user_id=?",
+            (user_id,)
+        )
+        results = cursor.fetchall()
+        conn.close()
+        
+        return [(r[0], r[1]) for r in results]
+    
+    def add_custom_role(self, user_id: int, role_id: int):
+        conn = self._get_connection()
+        cursor = conn.cursor()
+        
+        timestamp = int(datetime.now().timestamp())
+        
+        cursor.execute(
+            "INSERT OR REPLACE INTO custom_roles (user_id, role_id, created_at) VALUES (?, ?, ?)",
+            (user_id, role_id, timestamp)
+        )
+        
+        conn.commit()
+        conn.close()
+    
+    def remove_custom_role(self, user_id: int, role_id: int):
+        conn = self._get_connection()
+        cursor = conn.cursor()
+        
+        cursor.execute(
+            "DELETE FROM custom_roles WHERE user_id=? AND role_id=?",
+            (user_id, role_id)
+        )
+        
+        conn.commit()
+        conn.close()
+    
+    def count_user_custom_roles(self, user_id: int) -> int:
+        conn = self._get_connection()
+        cursor = conn.cursor()
+        
+        cursor.execute(
+            "SELECT COUNT(*) FROM custom_roles WHERE user_id=?",
+            (user_id,)
+        )
+        result = cursor.fetchone()
+        conn.close()
+        
+        return result[0] if result else 0
