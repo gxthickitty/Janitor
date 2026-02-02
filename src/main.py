@@ -30,7 +30,7 @@ class JanitorBot(commands.Bot):
     async def setup_hook(self):
         logger.info("Loading cogs...")
         
-        cog_folders = ['cogs.admin', 'cogs.moderation', 'cogs.fun', 'cogs.info', 'cogs.games']
+        cog_folders = ['cogs.admin', 'cogs.moderation', 'cogs.fun', 'cogs.info', 'cogs.games', 'cogs.customize']
         
         for folder in cog_folders:
             try:
